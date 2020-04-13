@@ -1,0 +1,38 @@
+.BoardWrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  margin: 0 0 20px;
+}
+
+.Board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  border: 2px solid black;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  transform: scale(1);
+  transition: 150ms all ease-out;
+
+  &--TurnX {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>❌</text></svg>") 16 0, auto;
+  }
+
+  &--TurnO {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>⭕️</text></svg>") 16 0, auto;
+  }
+
+  &--isComplete {
+    cursor: default;
+    transform: scale(0.95);
+  }
+
+  &--isTieGame {
+    cursor: default;
+    transform: scale(0.95);
+  }
+}

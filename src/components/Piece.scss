@@ -1,0 +1,25 @@
+@import '../styles/variables';
+
+.Piece {
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--Winning {
+    span {
+      filter: invert(1);
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-family-display;
+    font-weight: 700;
+    font-size: 5rem;
+    line-height: 1;
+    margin-top: 4px;
+  }
+}
