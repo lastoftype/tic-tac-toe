@@ -4,7 +4,7 @@
 
 ## Demo
 
-This project can be viewed here: https:///tic2.lastoftype.now.sh
+This project can be viewed here: [https:///tic2.lastoftype.now.sh](https://tic2.lastoftype.now.sh/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
