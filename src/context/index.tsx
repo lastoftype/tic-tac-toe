@@ -5,7 +5,6 @@ import * as Models from "../models";
 
 export interface BoardState {
   activePlayer: number;
-  togglePlayer: () => void;
   takeTurn: (pieceIndex: number, playerIndex: number) => void;
   board: Models.Board;
   restartGame: () => void;

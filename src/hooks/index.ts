@@ -23,6 +23,24 @@ const INITIAL_WINNER_STATE: Models.Winner = {
   playerIndex: null,
 };
 
+export const hasWinningCombo = (
+  playerIndex: number,
+  board: BoardState
+): number[] | null => {
+  const choices = board.choicesByPlayer[playerIndex];
+  let winningCombo = null;
+  let hasCombo;
+  for (const combo of Constants.WINNING_COMBOS) {
+    hasCombo = combo.filter((x) => choices.includes(x)).length === 3;
+    if (hasCombo) {
+      winningCombo = combo;
+      break;
+    }
+  }
+
+  return winningCombo;
+};
+
 export const useBoard = () => {
   const [activePlayer, _setActivePlayer] = React.useState(0);
   const [board, _setBoard] = React.useState(INITIAL_STATE);
@@ -32,14 +50,13 @@ export const useBoard = () => {
   const [isTieGame, _setTieGame] = React.useState(false);
   const [winners, _setWinners] = React.useState({} as Models.Winners);
 
-  const takeTurn = (pieceIndex: number, playerIndex: number) => {
+  const _takeTurn = (pieceIndex: number, playerIndex: number) => {
     _setBoard((prevBoard: BoardState) => {
       if (!!winner && winner.combo && winner.combo.length === 3) {
         return prevBoard;
       }
 
       const newBoard = {
-        ...prevBoard,
         choicesByPlayer: {
           ...prevBoard.choicesByPlayer,
           [playerIndex]: [
@@ -55,8 +72,6 @@ export const useBoard = () => {
           combo: winCombo,
           playerIndex,
         });
-        const response = ApiService.set(playerIndex);
-        _setWinners(response);
       } else if (
         [...newBoard.choicesByPlayer[0], ...newBoard.choicesByPlayer[1]]
           .length === 9
@@ -70,27 +85,15 @@ export const useBoard = () => {
     });
   };
 
-  const hasWinningCombo = (
-    playerIndex: number,
-    board: BoardState
-  ): number[] | null => {
-    const choices = board.choicesByPlayer[playerIndex];
-    let winningCombo = null;
-    let hasCombo;
-    for (const combo of Constants.WINNING_COMBOS) {
-      hasCombo = combo.filter((x) => choices.includes(x)).length === 3;
-      if (hasCombo) {
-        winningCombo = combo;
-        break;
-      }
+  const takeTurn = React.useCallback(_takeTurn, [winner, activePlayer]);
+
+  // If winner object is updated, send results to api
+  React.useEffect(() => {
+    if (winner && winner.combo.length === 3) {
+      const response = ApiService.set(activePlayer);
+      _setWinners(response);
     }
-
-    return winningCombo;
-  };
-
-  const togglePlayer = () => {
-    _setActivePlayer((prevPlayer: number) => (prevPlayer === 0 ? 1 : 0));
-  };
+  }, [activePlayer, winner]);
 
   const restartGame = () => {
     _setBoard({
@@ -112,7 +115,6 @@ export const useBoard = () => {
 
   return {
     activePlayer,
-    togglePlayer,
     takeTurn,
     board,
     restartGame,

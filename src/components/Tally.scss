@@ -1,18 +1,36 @@
 @import '../styles/variables';
 
 .Tally {
-  margin: 0 10px;
+  margin: 20px 10px;
+  display: flex;
+  justify-content: center;
+
+  @media screen and (min-width: 700px) {
+    justify-content: inherit;
+  }
 
   &__Inner {
     margin: 0 -20px;
     width: 100%;
     display: flex;
+    flex-direction: column;
+    max-width: 320px;
+
+    @media screen and (min-width: 700px) {
+      flex-direction: row;
+      max-width: 520px;
+    }
   }
 }
 
 .PlayerTally {
-  margin: 0 10px;
+  margin: 0 10px 10px;
   flex: 0 0 50%;
+
+  @media screen and (min-width: 700px) {
+    justify-content: inherit;
+    margin: 0 10px;
+  }
 
   header {
     background: black;
@@ -23,8 +41,12 @@
       text-align: center;
       font-family: $font-family-display;
       text-transform: uppercase;
-      font-size: 1.5rem;
+      font-size: 1rem;
       margin: 0;
+
+      @media screen and (min-width: 700px) {
+        font-size: 1.5rem;
+      }
     }
   }
 
