@@ -37,6 +37,7 @@ export const useBoard = () => {
       if (!!winner && winner.combo && winner.combo.length === 3) {
         return prevBoard;
       }
+
       const newBoard = {
         ...prevBoard,
         choicesByPlayer: {
@@ -54,7 +55,8 @@ export const useBoard = () => {
           combo: winCombo,
           playerIndex,
         });
-        ApiService.set(playerIndex);
+        const response = ApiService.set(playerIndex);
+        _setWinners(response);
       } else if (
         [...newBoard.choicesByPlayer[0], ...newBoard.choicesByPlayer[1]]
           .length === 9
