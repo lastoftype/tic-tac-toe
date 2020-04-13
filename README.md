@@ -1,3 +1,7 @@
+# Tic Tac Toe
+
+- Challenge: Use React Hooks and Context to create a tic tac toe app for 2 players.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
