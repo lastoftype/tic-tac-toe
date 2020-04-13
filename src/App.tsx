@@ -7,9 +7,9 @@ import "./App.scss";
 function App() {
   return (
     <div className="App">
+      <Tally />
       <h1>Tic Tac Toe</h1>
       <Board />
-      <Tally />
     </div>
   );
 }
